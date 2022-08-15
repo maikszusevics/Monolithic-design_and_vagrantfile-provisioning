@@ -75,7 +75,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "script.sh"
 ```
 
-### Running `vagrant up` command with dependency and app launch automation script in the Vagrantfile
+## Running `vagrant up` command with dependency and app launch automation script in the Vagrantfile
 
 ![image](https://user-images.githubusercontent.com/110176257/184716378-61f2dfa5-4b8e-4281-b6ba-4d5ec48a59eb.png)
 
