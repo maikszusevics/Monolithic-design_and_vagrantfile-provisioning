@@ -85,7 +85,7 @@ You can check if the provisioning has worked by running the tests contained with
 
 ![image](https://user-images.githubusercontent.com/110176257/184719007-4a050cf7-266b-4373-bac2-78eeb547e8bc.png)
 
-All tests passed, provisioning scripts works.
+All tests passed, provisioning script works.
 
 We can check by going to the application url at http://192.168.10.100:3000/
 
