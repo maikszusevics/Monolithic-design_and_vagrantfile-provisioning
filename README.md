@@ -1,6 +1,6 @@
 # Deployment
 ### Monolithic architecture
-A monolithic architecture of a software program is built as a unified unit that is self-contained and independent from other applications.
+A monolithic architecture of a software program refers to a unified application that is self-contained and independent from other applications.
 
 
 ![Blank board - Page 1 (1)](https://user-images.githubusercontent.com/110176257/184701206-059dceb1-7751-4f5e-993e-513e1a811a31.png)
@@ -80,6 +80,13 @@ Vagrant.configure("2") do |config|
 ![image](https://user-images.githubusercontent.com/110176257/184716378-61f2dfa5-4b8e-4281-b6ba-4d5ec48a59eb.png)
 
 In the above image, you can see the inline method being used with a provision script, and that the final output of `vagrant up` command stated the application is up and running. 
+
+You can check if the provisioning has worked by running the tests contained within the evnironment/spec-tests by using `rake spec`
+
+![image](https://user-images.githubusercontent.com/110176257/184719007-4a050cf7-266b-4373-bac2-78eeb547e8bc.png)
+
+All tests passed, provisioning scripts works.
+
 We can check by going to the application url at http://192.168.10.100:3000/
 
 ![image](https://user-images.githubusercontent.com/110176257/184716733-f4ffd20b-d7ae-40f9-b1ac-cac483347f9c.png)
