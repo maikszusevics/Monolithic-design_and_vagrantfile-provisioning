@@ -91,5 +91,73 @@ We can check by going to the application url at http://192.168.10.100:3000/
 
 ![image](https://user-images.githubusercontent.com/110176257/184716733-f4ffd20b-d7ae-40f9-b1ac-cac483347f9c.png)
 
+## Reverse proxy and automating reverse proxy
+
+A reverse proxy is an intermediary server between clients and backend servers. Reverse proxies make reaching and navigating websites and web applications a lot more user friendly because of the additional level of abstraction it provides to the end user (e.g not having to know or input the correct port number). In this example we will be setting up a reverse proxy to direct client requests from port 80 to the appropriate backend server (port 3000 in this case). 
+
+In order to set up a reverse proxy, we must edit the nginx configuration at `etc/nginx/sites-available/default`
+To redirect port 80 to port 3000 use `sudo nano /etc/nginx/sites-available/default`
+
+![image](https://user-images.githubusercontent.com/110176257/184970952-3ec3728a-ae1d-4d6e-9a68-9333049c6cdd.png)
+
+the above image is what you will see once you enter the default file, from here you have to simply scroll to `location / {` and replace what's there with `proxy_pass http://localhost:3000;` 
+
+Example:
+
+![image](https://user-images.githubusercontent.com/110176257/184971650-88259e35-6f88-4a81-8cbf-136d6567456a.png)
+
+Is changed to:
+
+![image](https://user-images.githubusercontent.com/110176257/184971805-37d439f9-a5d7-4a13-9844-e47b7aa8716d.png)
+
+Now you can run `sudo nginx -t` to check syntax:
+
+![image](https://user-images.githubusercontent.com/110176257/184972177-a060dd55-b603-4977-8488-bcf7279a7136.png)
+
+If it's okay, reload nginx with `sudo systemctl restart nginx` and the reverse proxy is set up and running.
+
+## Automating reverse proxy in the provision script
+
+To automate your reverse proxy settings: you will need to create a new file with the configuration, and add a command to the provisioning script which overwrites the default configuration with what you put inside your file.
+
+First choose the location this new file will be in, this example uses the app/app folder of the VM.
+- Move to the desired directory with `cd`, 
+- Create a file using `sudo nano rev_proxy`
+- Write your reverse proxy configuration in the empty rev_proxy file
+
+To redirect port 80 to port 3000 all we need in our config file is this:
+```nginx
+server {
+        listen 80;
+        listen [::]:80;
+
+        access_log /var/log/nginx/reverse-access.log;
+        error_log /var/log/nginx/reverse-error.log;
+
+        location / {
+                    proxy_pass http://localhost:3000;
+  }
+}
+```
+##### Now we can automate this file overwriting the `/etc/nginx/sites-available/default` file.
+
+Add these lines to the end of your provisioning script:
+
+```
+sudo cp -f app/app/rev_proxy /etc/nginx/sites-available/default
+
+sudo systemctl restart nginx
+
+```
+The `sudo cp -f app/app/rev_proxy /etc/nginx/sites-available/default` command is copying the `app/app/rev_proxy` directory to the `/etc/nginx/sites-available/default` directory. The `-f` signifies to overwrite.
+
+The next command orders to restart nginx service which will apply the changes. 
+
+Here you can see these commands inside my provisioning script:
+
+![image](https://user-images.githubusercontent.com/110176257/184974953-f0ed24f2-b106-4cad-808e-8762cb43a2fb.png)
+
+
+
 
 
