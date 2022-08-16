@@ -192,6 +192,9 @@ Use `sudo nano .bashrc` from the default directory to open the editor, then add 
 use source command to make sure changes are scanned and applied:
 `source ~/.bashrc`
 
+Now with all this set up, this is how our configuration should look like:
+
+![image](https://user-images.githubusercontent.com/110176257/184983030-d9776609-642e-4c3c-86f9-65cbb7ca12c0.png)
 
 
 
