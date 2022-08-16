@@ -157,6 +157,41 @@ Here you can see these commands inside my provisioning script:
 
 ![image](https://user-images.githubusercontent.com/110176257/184974953-f0ed24f2-b106-4cad-808e-8762cb43a2fb.png)
 
+# Multiple machines
+
+In order for the Sparta Test App to work, we need a seperate database VM.
+We can use the Vagrantfile to make multiple machines.
+
+![image](https://user-images.githubusercontent.com/110176257/184979350-90efa685-ed84-4772-b737-cab3843c07b6.png)
+
+The above image shows how we can edit the Vagrantfile to create a VM called "app".
+Within the app configuration there is included the provisioning script we used above to automate dependencies and reverse proxy setup.
+
+Below that provisioning script, you use 
+```ruby
+config.vm.define "db" do |db|
+        db.vm.box = "ubuntu/xenial64"
+```
+to configure the database machine:
+
+
+![image](https://user-images.githubusercontent.com/110176257/184980019-0613f782-8f35-4a89-a116-62c66bd05aa8.png)
+
+Now when you run `vagrant up`, and then `vagrant status`, you should see there are two machines running.
+
+![image](https://user-images.githubusercontent.com/110176257/184980295-1f9ac8a6-d24f-4a43-8c2a-ef965e8aa432.png)
+
+If only one of the machines is running, you can run `vagrant up db` to specify.
+
+## Persistent env variables
+For app to communicate with db, it will need a `DB_HOST` environmental variable.
+To create one that doesnt disappear after exiting the machine we must edit the `.bashrc file` in the home folder.
+
+Use `sudo nano .bashrc` from the default directory to open the editor, then add `export DB_HOST=mongodb://192.168.10.150:27017/posts` on the *end of the file*
+
+use source command to make sure changes are scanned and applied:
+`source ~/.bashrc`
+
 
 
 
