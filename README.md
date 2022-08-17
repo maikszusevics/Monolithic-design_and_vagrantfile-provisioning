@@ -197,5 +197,33 @@ Now with all this set up, this is how our configuration should look like:
 ![image](https://user-images.githubusercontent.com/110176257/184983030-d9776609-642e-4c3c-86f9-65cbb7ca12c0.png)
 
 
+# Creating mongodb database on db machine and enabling /posts functionality
+
+![image](https://user-images.githubusercontent.com/110176257/185150435-c50e59d7-dd6e-467f-82b2-98d59d489046.png)
+
+## Installing mongodb on db machine 
+
+- Make sure db is running by `vagrant status`, if its not running run `vagrant up db`
+- Connect to db with `vagrant ssh db`
+- Run `sudo apt-get update && sudo apt-get upgrade -y`
+- Run `sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv D68FA50FEA312927`
+- Run `echo "deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list`
+- Run `sudo apt-get install -y mongodb-org=3.2.20 mongodb-org-server=3.2.20 mongodb-org-shell=3.2.20 mongodb-org-mongos=3.2.20 mongodb-org-tools=3.2.20`
+- Run `sudo systemctl start mongod`
+- To make sure it is running, run `sudo systemctl status mongod`
+- It should say `Active: active (running)`
+
+- Now you will have to edit the mongodb configuration file.
+- You can do this by running `sudo nano /etc/mongod.conf`
+- 
+In this file, you can scroll down until you see the IP, and change it to the IP you wish to be able to connect, or change it to all zeroes for anyone to be able to connect. Although in a real work scenario all zeroes would be a major security issue.
+
+Save the file by control x and y 
+
+- run `sudo systemctl restart mongod`
+
+
+
+
 
 
