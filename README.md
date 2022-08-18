@@ -194,7 +194,7 @@ use source command to make sure changes are scanned and applied:
 
 Now with all this set up, this is how our configuration should look like:
 
-![image](https://user-images.githubusercontent.com/110176257/184983030-d9776609-642e-4c3c-86f9-65cbb7ca12c0.png)
+![image](https://user-images.githubusercontent.com/110176257/185357249-6abd3b9c-31cb-4cd5-a09c-3caa6d7bc9b2.png)
 
 
 # Creating mongodb database on db machine and enabling /posts functionality
