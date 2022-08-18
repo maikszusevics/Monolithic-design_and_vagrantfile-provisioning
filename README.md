@@ -224,6 +224,42 @@ Save the file by control x and y
 
 
 
+# Automating mongodb
+
+- Create new config file for mongod with IP all zeroes:
+```
+# mongod.conf
+
+# for documentation of all options, see:
+#   http://docs.mongodb.org/manual/reference/configuration-options/
+
+# Where and how to store data.
+storage:
+  dbPath: /var/lib/mongodb
+  journal:
+    enabled: true
+#  engine:
+#  mmapv1:
+#  wiredTiger:
+
+# where to write logging data.
+systemLog:
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongod.log
+
+# network interfaces
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+```
+
+- Update vagrantfile to install mongodb and edit config file:
+
+![image](https://user-images.githubusercontent.com/110176257/185348121-08c33d3d-6b30-4736-b092-3edfc4ce9772.png)
+
+- Update vagrantfile to automate `node seed.js` command in app machine:
 
 
+![image](https://user-images.githubusercontent.com/110176257/185348351-44179c0c-3045-4be2-ae97-05613228f987.png)
 
